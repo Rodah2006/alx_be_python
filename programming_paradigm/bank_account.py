@@ -32,6 +32,9 @@ class BankAccount:
     def get_balance(self):
         return self.balance
 
+    def display_balance(self):
+        print(f"Current Balance: ${self.balance:.2f}")  # ✅ ALX expects this line
+
     def _save_balance(self):
         with open(self.balance_file, "w") as f:
             f.write(str(self.balance))
