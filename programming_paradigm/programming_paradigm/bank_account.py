@@ -6,16 +6,17 @@ class BankAccount:
             with open(self.balance_file, "r") as f:
                 self.balance = float(f.read())
         except (FileNotFoundError, ValueError):
-            self.balance = initial_balance
-            self.save_balance()
+            # If file doesn't exist or content is bad, use initial balance
+            self.balance = float(initial_balance)
+            self._save_balance()
 
-    def save_balance(self):
+    def _save_balance(self):
         with open(self.balance_file, "w") as f:
-            f.write(str(self.balance))
+            f.write(f"{self.balance}")
 
     def deposit(self, amount):
         self.balance += amount
-        self.save_balance()
+        self._save_balance()
         print(f"Deposited: ${amount}")
 
     def withdraw(self, amount):
@@ -23,8 +24,8 @@ class BankAccount:
             print("Insufficient funds.")
         else:
             self.balance -= amount
-            self.save_balance()
+            self._save_balance()
             print(f"Withdrew: ${amount}")
 
-    def display_balance(self):
+    def display(self):
         print(f"Current Balance: ${self.balance:.2f}")
