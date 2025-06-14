@@ -1,12 +1,18 @@
-# programming_paradigm/main.py
+# main.py
 
-from bank_account import BankAccount
+import sys
+from robust_division_calculator import safe_divide
 
 def main():
-    account = BankAccount(250)
+    if len(sys.argv) != 3:
+        print("Usage: python main.py <numerator> <denominator>")
+        sys.exit(1)
 
-    account.withdraw(300)
-    print(f"Current Balance: ${account.get_balance():.2f}")
+    numerator = sys.argv[1]
+    denominator = sys.argv[2]
+
+    result = safe_divide(numerator, denominator)
+    print(result)
 
 if __name__ == "__main__":
     main()
